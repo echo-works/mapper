@@ -52,7 +52,7 @@ final class NormalValueTests: XCTestCase {
 
     func testEmptyStringJSON() {
         struct Test: Mappable {
-            let JSON: AnyObject
+            let JSON: Any
             init(map: Mapper) throws {
                 try self.JSON = map.from("")
             }
