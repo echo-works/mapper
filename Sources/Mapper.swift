@@ -254,7 +254,7 @@ public struct Mapper {
      - returns: The value for the given field, if it can be converted to the expected type T
      */
     @warn_unused_result
-    public func from<T: Convertible where T == T.ConvertedType>(_ field: String) throws -> T {
+    public func from<T: Convertible>(_ field: String) throws -> T where T == T.ConvertedType {
         return try self.from(field, transformation: T.fromMap)
     }
 
@@ -273,7 +273,7 @@ public struct Mapper {
      - returns: The value for the given field, if it can be converted to the expected type [T]
      */
     @warn_unused_result
-    public func from<T: Convertible where T == T.ConvertedType>(_ field: String) throws -> [T] {
+    public func from<T: Convertible>(_ field: String) throws -> [T] where T == T.ConvertedType {
         let value = try self.JSONFromField(field)
         if let JSON = value as? [Any] {
             return try JSON.map(T.fromMap)
@@ -293,7 +293,7 @@ public struct Mapper {
      - returns: The value for the given field, if it can be converted to the expected type T otherwise nil
      */
     @warn_unused_result
-    public func optionalFrom<T: Convertible where T == T.ConvertedType>(_ field: String) -> T? {
+    public func optionalFrom<T: Convertible>(_ field: String) -> T? where T == T.ConvertedType {
         return try? self.from(field, transformation: T.fromMap)
     }
 
@@ -308,7 +308,7 @@ public struct Mapper {
      - returns: The value for the given field, if it can be converted to the expected type [T]
      */
     @warn_unused_result
-    public func optionalFrom<T: Convertible where T == T.ConvertedType>(_ field: String) -> [T]? {
+    public func optionalFrom<T: Convertible>(_ field: String) -> [T]? where T == T.ConvertedType {
         return try? self.from(field)
     }
 
@@ -321,7 +321,7 @@ public struct Mapper {
      - returns: The first non-nil value to be produced from the array of fields, or nil if none exist
      */
     @warn_unused_result
-    public func optionalFrom<T: Convertible where T == T.ConvertedType>(fields: [String]) -> T? {
+    public func optionalFrom<T: Convertible>(fields: [String]) -> T? where T == T.ConvertedType {
         for field in fields {
             if let value: T = try? self.from(field) {
                 return value
